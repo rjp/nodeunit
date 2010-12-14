@@ -1,0 +1,32 @@
+<html>
+<head>
+<title></title>
+<style type="text/css">
+body { font: 12px Helvetica Neue }
+h2 { margin:0 ; padding:0 }
+pre { font: 11px Andale Mono; margin-left: 1em; padding-left: 1em; margin-top:0; font-size:smaller;}
+.assertion_message { margin-left: 1em; }
+  ol {	list-style: none;	margin-left: 1em;	padding-left: 1em;	text-indent: -1em;}
+  ol li.pass { color: green; }
+  ol li.fail { color: red; }
+</style>
+</head>
+<body>
+<% for (var i=0; i < suites.length; i++) { %>
+  <% var suite=suites[i]; %>
+  <h2><%= suite.name %></h2>
+  <ol>
+  <% for (var j=0; j < suite.testcases.length; j++) { -%>
+      <% var testcase=suites[i].testcases[j]; -%>
+      <% if (testcase.state == 'fail') { -%><li class="fail">&#x2716; <% } -%>
+      <% if (testcase.state == 'pass') { -%><li class="pass">&#x2713; <% } -%>
+      <%= testcase.name %><% if (testcase.failure) { -%><pre>
+      <%= testcase.failure.message %>
+      <% if (testcase.failure.backtrace) { %><%= testcase.failure.backtrace %><% } -%>
+      </pre>
+      <% } -%>
+      </li>
+    <% } -%>
+    </ol>
+<% } -%>
+</body></html>
